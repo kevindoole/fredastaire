@@ -1,0 +1,31 @@
+{
+  "name": "mocha-given",
+  "version": "0.0.1",
+  "description": "Mocha-given adds a `given` method, which makes it really easy to succinctly and readably set up a test case.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kevindoole/mocha-given.git"
+  },
+  "keywords": [
+    "mocha",
+    "test",
+    "shared",
+    "setup",
+    "scenario"
+  ],
+  "author": "Kevin Doole",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kevindoole/mocha-given/issues"
+  },
+  "homepage": "https://github.com/kevindoole/mocha-given#readme",
+  "devDependencies": [
+  	"mocha",
+  	"minimist",
+  	"colors"
+  ]
+}
