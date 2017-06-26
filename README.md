@@ -23,6 +23,8 @@ There's also `when` and `and`, which are aliases of `given`.
 
 Calls to `given` return the mocha-given module, so you can chain calls together into wonderful poems.
 
+TODO: Add given, when, and to the test output.
+
 _/your/project/tests/astronauts-test.js_
 ```JavaScript
 const state = {
@@ -31,7 +33,7 @@ const state = {
 
 let res;
 
-describe('Installing interesting space apparatus', function() {
+describe('Interesting space apparatus', function() {
 	given('there are two spacethings', {within: state.spaceThings});
 	// Calls steps['there are two spacethings']().
 
