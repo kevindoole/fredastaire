@@ -1,10 +1,12 @@
-# mocha-given
-Mocha-given adds a `given` method to mocha tests. It has two impacts:
+# Fredastaire
+Fredastaire adds step methods to mocha tests that have two impacts:
 - Your test cases' setup code is significantly more readable
 - You only have to write the same setup steps once
 
 _Example_
 `given(name, {within, withArgs, ...whateverYouWantToPassToTheDefinition})`
+- You can also use `when` and `and`
+- You can chain these calls together
 
 ## Setup
 0. `npm install mocha-given --save-dev`
