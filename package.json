@@ -1,28 +1,30 @@
 {
-  "name": "mocha-given",
+  "name": "fredastaire",
   "version": "0.0.1",
-  "description": "Mocha-given adds a `given` method, which makes it really easy to succinctly and readably set up a test case.",
+  "description": "fredastaire adds chainable step methods (`given`, `when`, `and`), which makes it easy to write readable and reusable setup steps for mocha tests.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kevindoole/mocha-given.git"
+    "url": "https://github.com/kevindoole/fredastaire.git"
   },
   "keywords": [
     "mocha",
     "test",
     "shared",
     "setup",
-    "scenario"
+    "scenario",
+    "tdd",
+    "bdd"
   ],
   "author": "Kevin Doole",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/kevindoole/mocha-given/issues"
+    "url": "https://github.com/kevindoole/fredastaire/issues"
   },
-  "homepage": "https://github.com/kevindoole/mocha-given#readme",
+  "homepage": "https://github.com/kevindoole/fredastaire#readme",
   "devDependencies": [
   	"mocha",
   	"minimist",
