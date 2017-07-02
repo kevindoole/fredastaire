@@ -7,23 +7,12 @@ var colors = require( 'colors/safe' );
 /**
  * This UI adds a setup method which enables sharing setup definitions in a relatively light way.
  */
-module.exports = Mocha.interfaces['mocha-given'] = function(suite) {
+module.exports = Mocha.interfaces['fredastaire'] = function(suite) {
   suite.on('pre-require', function(context, file, mocha) {
     var common = require('mocha/lib/interfaces/common')([suite], context);
+    var stepDefinitions = require('./steps').getSteps();
 
     context.run = mocha.options.delay && common.runWithSuite(suite);
-
-    var setupDefinitionsArgumentProvided = !!argv.setupDefinitions;
-
-    if (!setupDefinitionsArgumentProvided) {
-      warn('You must provide your step definitions file location using the --setupDefinitions option.')
-
-      throw new Error('mocha-given: Called `given` without a step definitions file');
-    }
-
-    var fullPathToStepDefinitions = path.join(process.env.PWD, argv.setupDefinitions)
-    var stepDefinitionsFileExists = fs.existsSync(argv.setupDefinitions);
-    var stepDefinitions = require(fullPathToStepDefinitions);
 
     /**
      * Enables easily sharing setup steps.
@@ -33,38 +22,16 @@ module.exports = Mocha.interfaces['mocha-given'] = function(suite) {
         givenOptions = {};
       }
 
-      if (!stepDefinitionsFileExists) {
-        warn('mocha-given: Aborting');
-        info('The step definitions filename you provided (' + argv.setupDefinitions + ') does not exist.')
-
-        return;
-      }
-
       if (!stepDefinitions[title]) {
-        warn('mocha-given: Skipping unimplemented step definition.');
-        info('Add the method "' + title + '" to ' + argv.setupDefinitions + '.');
+        warn('fredastaire: Skipping unimplemented step definition.');
+        info('Add the method "' + title + '" using `addSteps()` before your tests run.');
 
         return;
       }
 
       var stepOptions = Object.assign({}, givenOptions);
 
-      // Map within to container, because it reads better on the definition side.
-      if (givenOptions.within) {
-        stepOptions.container = givenOptions.within;
-      }
-
-      // Map withArgs to args, because it reads better on the definition side.
-      if (givenOptions.withArgs) {
-        if (!Array.isArray(givenOptions.withArgs)) {
-          givenOptions.withArgs = [givenOptions.withArgs];
-        }
-        stepOptions.args = givenOptions.withArgs;
-      }
-
-      stepDefinitions[title](stepOptions);
-
-      return context;
+      return stepDefinitions[title](stepOptions);
     };
 
 

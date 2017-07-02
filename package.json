@@ -1,6 +1,6 @@
 {
   "name": "fredastaire",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "fredastaire adds chainable step methods (given, when, and), which make it easy to write readable and reusable setup steps for mocha tests.",
   "main": "index.js",
   "scripts": {
