@@ -28,7 +28,7 @@ There's also `when` and `and`, which are aliases of `given`.
 
 TODO: Add given, when, and to the test output.
 
-```JavaScript
+```js
 // /your/project/tests/astronauts-test.js
 
 const state = {
@@ -63,7 +63,7 @@ describe('Interesting space apparatus example', function() {
 ### 2. Step definitions
 Step definitions are the places where you put your setup code for individual tests.
 
-```JavaScript
+```js
 // /your/project/wherever/you/like/your-definitions.js
 
 const addSteps = require('fredastaire/steps');
@@ -93,7 +93,7 @@ addSteps({
 
 #### `given`, `and`, `when`
 
-```JavaScript
+```js
 given('there is something', {named: 'whatever'});
 ```
 
@@ -114,7 +114,7 @@ Pass whatever your step needs to can create something specific.
 
 #### `addSteps`
 
-```JavaScript
+```js
 addSteps({
   'there is something': function(data) {
 		global.thing = {...data};
