@@ -3,9 +3,14 @@ Fredastaire adds step methods to mocha tests that have two impacts:
 - Your test cases' setup code is significantly more readable
 - You only have to write the same setup steps once
 
-_Example_
-`given(name, {container, args, ...whateverYouWantToPassToTheDefinition})`
-- You can also use `when` and `and`
+## Table of contents
+- [Setup](#Setup)
+- [Usage](#Usage)
+  - [Tests](#Tests)
+  - [Step definitions](#Step-definitions)
+- [Full API](#Full-Api)
+
+---
 
 ## Setup
 0. `npm install fredastaire --save-dev` or `yarn add fredastaire -D`
@@ -15,7 +20,6 @@ _Example_
   `mocha ./tests/some-tests.js --ui fredastaire --require <your steps file>`
 
 ## Usage
-You need two things: mocha tests that call `given` and some step definitions.
 
 ### 1. Tests
 Just call `given('with some string')`. The string will be used to identify which step definition to call (more on that later).
@@ -24,8 +28,9 @@ There's also `when` and `and`, which are aliases of `given`.
 
 TODO: Add given, when, and to the test output.
 
-_/your/project/tests/astronauts-test.js_
 ```JavaScript
+// /your/project/tests/astronauts-test.js
+
 const state = {
 	spaceThings: [],
 	astronauts: [],
@@ -36,7 +41,7 @@ let res;
 describe('Interesting space apparatus example', function() {
 	given('there are two spacethings', {container: state.spaceThings});
 
-	and('there is one astronaut', {container: state.astronauts, args: {}});
+	and('there is one astronaut', {container: state.astronauts});
 
 	when('i request a space thing that has an astronaut', {
 		id: state.spaceThings[0].id,
@@ -58,18 +63,19 @@ describe('Interesting space apparatus example', function() {
 ### 2. Step definitions
 Step definitions are the places where you put your setup code for individual tests.
 
-_/your/project/wherever/you/like/your-definitions.js_
-```
+```JavaScript
+// /your/project/wherever/you/like/your-definitions.js
+
 const addSteps = require('fredastaire/steps');
 const request = require('whatever/you/like/for/requesting/stuff');
 
 addSteps({
-  'there are two space things': function({container, args}) {
-    container = [SpaceThings.create(args), SpaceThings.create(args)];
+  'there are two space things': function({container, spaceThing1={}, spaceThing2={}}) {
+    container = [SpaceThings.create(spaceThing1), SpaceThings.create(spaceThing2)];
   },
 
-  'there is one astronaut': function({container, args}) {
-    container = SpaceAstronaut.create(args.astronaut);
+  'there is one astronaut': function({container, astronaut={}}) {
+    container = SpaceAstronaut.create(astronaut);
   },
 
   'i request a space thing that has an astronaut': function({id, container}) {
@@ -78,3 +84,52 @@ addSteps({
   }
 });
 ```
+
+## Full API
+
+### Methods
+
+---
+
+#### `given`, `and`, `when`
+
+```JavaScript
+given('there is something', {named: 'whatever'});
+```
+
+Calls a defined step inside a `before`. `given`, `and` and `when` are all the
+same function, so use them in whatever order you like. Return a promise to
+handle async behavior.
+
+##### Arguments
+
+###### {string} `name` -- The name used to identify the step.
+So if you define a step named "this is a step", then you would run the step
+using `given('this is a step')`.
+
+###### {object} `data` -- Whatever you need to pass to the step.
+Pass whatever your step needs to can create something specific.
+
+---
+
+#### `addSteps`
+
+```JavaScript
+addSteps({
+  'there is something': function(data) {
+		global.thing = {...data};
+  }
+});
+```
+
+Registers steps which are triggered with `given`.
+
+##### Arguments
+###### {object} `steps` -- The name and function to be triggered by `given`.
+The objects you pass to `addSteps` are all merged together, so when you call `given(name)`, it calls `steps[name]()`. *So if you pass the same key twice to `addSteps`, the first step will be replaced by the second.
+
+---
+
+#### `getSteps()`
+
+Gets all the steps you've defined
