@@ -4,11 +4,11 @@ Fredastaire adds step methods to mocha tests that have two impacts:
 - You only have to write the same setup steps once
 
 ## Table of contents
-- [Setup](#Setup)
-- [Usage](#Usage)
-  - [Tests](#Tests)
-  - [Step definitions](#Step-definitions)
-- [Full API](#Full-Api)
+- [Setup](#setup)
+- [Usage](#usage)
+  - [Tests](#1-tests)
+  - [Step definitions](#2-step-definitions)
+- [Full API](#full-api)
 
 ---
 
